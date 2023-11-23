@@ -1,8 +1,28 @@
 "use client";
-
-const Login = () => {
-  const handleSubmit = (e) => {
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+const Login = ({ setOpenLoginModal }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      if (res.error) {
+        console.log("invalid credentials");
+      } else {
+        setOpenLoginModal(false);
+        router.replace("/account");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <form
@@ -11,14 +31,16 @@ const Login = () => {
     >
       <div className="input-container  w-full">
         <input
+          onChange={(e) => setEmail(e.target.value)}
           className="input-login border bg-transparent rounded p-3 outline-none  w-full text-white "
           type="text"
         />
-        <label>Username</label>
+        <label>Email</label>
       </div>
 
       <div className="input-container  w-full">
         <input
+          onChange={(e) => setPassword(e.target.value)}
           className="input-login border bg-transparent  rounded p-3 outline-none w-full text-white "
           type="password"
         />

@@ -19,7 +19,7 @@ const LoginRegisterModal = ({ setOpenLoginModal }) => {
         />
         {switchModals ? (
           <div>
-            <Login />
+            <Login setOpenLoginModal={setOpenLoginModal} />
             <div className="mt-5 flex items-center gap-3 text-sm">
               <p className="text-white ">Dont have an account?</p>
               <button onClick={() => setSwitchModals(false)}>Sign Up</button>
