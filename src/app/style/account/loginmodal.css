@@ -9,8 +9,8 @@
   place-items: center;
 }
 .modal-content {
+  margin-top: 4.5rem;
   background-color: black;
-  height: 85vh;
   padding: 4rem;
   border-radius: 12px;
   margin-bottom: 3rem;
@@ -29,4 +29,10 @@
 .hover-btn:hover {
   background-color: #c77dff;
   color: white;
+}
+
+@media (max-width: 500px) {
+  .modal-content {
+    padding: 2rem;
+  }
 }

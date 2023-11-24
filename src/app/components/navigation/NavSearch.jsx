@@ -54,7 +54,7 @@ const NavSearch = () => {
   return (
     <div className="search-nav-container" ref={dropdownRef}>
       <input
-        className="outline-none mid-purpole-bg  text-white w-full placeholder-current p-2 rounded-xl"
+        className="outline-none mid-purpole-bg  border text-white w-full placeholder-current p-2 rounded-xl"
         type="text"
         placeholder="Search"
         onChange={(e) => setInputValue(e.target.value)}

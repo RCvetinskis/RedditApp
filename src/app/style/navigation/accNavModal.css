@@ -1,0 +1,8 @@
+.nav-acc-container .nav-acc-item {
+  padding: 1rem;
+}
+
+.nav-acc-container .nav-acc-item:hover {
+  background: #10002b;
+  color: #e0aaff;
+}

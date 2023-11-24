@@ -4,7 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import { IoMdCloseCircle } from "react-icons/io";
 import useCloseOutside from "@/app/hooks/useCloseOutside";
-import "../../../style/account/loginmodal.css";
+import "../../style/account/loginmodal.css";
 const LoginRegisterModal = ({ setOpenLoginModal }) => {
   const [switchModals, setSwitchModals] = useState(true);
 
@@ -20,17 +20,27 @@ const LoginRegisterModal = ({ setOpenLoginModal }) => {
         {switchModals ? (
           <div>
             <Login setOpenLoginModal={setOpenLoginModal} />
-            <div className="mt-5 flex items-center gap-3 text-sm">
+            <div className="mt-5 flex items-center gap-3 text-xs">
               <p className="text-white ">Dont have an account?</p>
-              <button onClick={() => setSwitchModals(false)}>Sign Up</button>
+              <button
+                className="hover:text-white hover:border-b border-white"
+                onClick={() => setSwitchModals(false)}
+              >
+                Sign Up
+              </button>
             </div>
           </div>
         ) : (
           <div>
-            <Register />
-            <div className="mt-5 flex items-center gap-3 text-sm">
+            <Register setSwitchModals={setSwitchModals} />
+            <div className="mt-5 flex items-center gap-3 text-xs">
               <p className="text-white ">Already have an account?</p>
-              <button onClick={() => setSwitchModals(true)}>Log in</button>
+              <button
+                className="hover:text-white hover:border-b border-white"
+                onClick={() => setSwitchModals(true)}
+              >
+                Log in
+              </button>
             </div>
           </div>
         )}

@@ -3,18 +3,23 @@ import Link from "next/link";
 import { FaHome } from "react-icons/fa";
 import NavSearch from "./NavSearch";
 import { IoLogIn } from "react-icons/io5";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import MyContext from "@/app/context/MyContext";
-import LoginRegisterModal from "./Account/LoginRegisterModal";
-import { useSession, signOut } from "next-auth/react";
-import { RiLogoutBoxFill } from "react-icons/ri";
+import LoginRegisterModal from "../Account/LoginRegisterModal";
+import { useSession } from "next-auth/react";
+import {
+  IoIosArrowDropdownCircle,
+  IoIosArrowDropupCircle,
+} from "react-icons/io";
+import NavAccount from "./NavAccount";
 
 const NavBar = () => {
   const { openLoginModal, setOpenLoginModal } = useContext(MyContext);
+  const [accModal, setAccModal] = useState(false);
   const { data: session } = useSession();
 
   return (
-    <nav className="dark-purpole-bg mid-purpole-color  p-3 flex justify-between items-center border-b-2">
+    <nav className=" fixed  w-full top-[0] dark-purpole-bg mid-purpole-color p-3 flex justify-between items-center border-b-2 border-current z-20  ">
       <Link
         className="mx-5 hover:text-white transition ease-in-out duration-200"
         href={"/"}
@@ -32,11 +37,27 @@ const NavBar = () => {
           size={30}
         />
       ) : (
-        <RiLogoutBoxFill
-          size={30}
-          onClick={() => signOut()}
-          className="mx-5 hover:text-white transition ease-in-out duration-200 cursor-pointer"
-        />
+        <div
+          onClick={() => setAccModal(!accModal)}
+          className="nav-user-display hover: cursor-pointer border-2 border-current rounded p-3 ml-4  flex items-center gap-3 "
+        >
+          <div className="flex items-center gap-3">
+            {" "}
+            <img
+              className="rounded "
+              width={30}
+              height={30}
+              src={session.user.avatar}
+              alt={`avatar of user ${session.user.username}`}
+            />{" "}
+            <p>{session.user.username}</p>
+          </div>
+          {accModal ? (
+            <IoIosArrowDropupCircle size={24} />
+          ) : (
+            <IoIosArrowDropdownCircle size={24} />
+          )}
+        </div>
       )}
 
       {openLoginModal ? (
@@ -44,6 +65,7 @@ const NavBar = () => {
       ) : (
         <></>
       )}
+      {accModal ? <NavAccount setAccModal={setAccModal} /> : <></>}
     </nav>
   );
 };

@@ -1,27 +1,38 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+
+import useFormValidation from "../../hooks/useFormValidation";
 const Login = ({ setOpenLoginModal }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [inputValues, setInputValues] = useState({
+    email: "",
+    password: "",
+  });
+  const { errorMsg, setErrorMsg } = useFormValidation(inputValues, "login");
+
+  const handleChange = (e) => {
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-      if (res.error) {
-        console.log("invalid credentials");
-      } else {
-        setOpenLoginModal(false);
-        router.replace("/account");
+    if (!errorMsg) {
+      try {
+        const res = await signIn("credentials", {
+          email: inputValues.email,
+          password: inputValues.password,
+          redirect: false,
+        });
+        if (res.error) {
+          setErrorMsg("Invalid credentials");
+        } else {
+          setOpenLoginModal(false);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
   return (
@@ -31,18 +42,20 @@ const Login = ({ setOpenLoginModal }) => {
     >
       <div className="input-container  w-full">
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
           className="input-login border bg-transparent rounded p-3 outline-none  w-full text-white "
           type="text"
+          name="email"
         />
         <label>Email</label>
       </div>
 
       <div className="input-container  w-full">
         <input
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChange}
           className="input-login border bg-transparent  rounded p-3 outline-none w-full text-white "
           type="password"
+          name="password"
         />
         <label>Password</label>
       </div>
@@ -53,6 +66,7 @@ const Login = ({ setOpenLoginModal }) => {
       >
         Log In
       </button>
+      <div className="error self-start text-red-500 text-xs ">{errorMsg}</div>
     </form>
   );
 };

@@ -3,6 +3,7 @@ import dbUsers from "../../../../schemas/dbUsers";
 import bcrypt from "bcrypt";
 import connectMongoDb from "../../../../lib/mongodb";
 import { validateUser } from "../../../../middleware/usersValidator";
+
 export async function POST(req) {
   try {
     await connectMongoDb();
@@ -10,21 +11,23 @@ export async function POST(req) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const validationError = await validateUser(email, username);
+    const validationError = await validateUser(email, username, password);
     if (validationError) {
-      return NextResponse.json(
-        { message: validationError.message },
-        { status: validationError.status }
-      );
+      return NextResponse.json(validationError);
     }
 
     await dbUsers.create({ username, email, password: hashedPassword });
 
-    return NextResponse.json({ message: "User Registered" }, { status: 201 });
+    return NextResponse.json({
+      message: "User Registered",
+      status: 201,
+      error: false,
+    });
   } catch (error) {
-    return NextResponse.json(
-      { message: "An error occured while registering the user." },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      message: "An error occured while registering the user.",
+      status: 500,
+      error: true,
+    });
   }
 }

@@ -1,0 +1,35 @@
+.create-post-container {
+  border: 3px solid #5a189a;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+/* btns styles */
+/* btn create-post */
+.btn-create-post {
+  background-color: #5a189a;
+  flex: 1;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  margin: 0 1rem;
+  transition: all 0.3s ease-in;
+}
+
+.btn-create-post:hover {
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.btn-create-post-resized {
+  color: #5a189a;
+  transition: all 0.3s ease-in;
+}
+.btn-create-post-resized:hover {
+  color: white;
+  cursor: pointer;
+}
+
+/* modal */
+.post-modal-container {
+  transition: all 0.1s ease-out;
+}
