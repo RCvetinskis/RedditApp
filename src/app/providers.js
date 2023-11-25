@@ -9,9 +9,12 @@ export const AuthProvider = ({ children }) => {
 
 export const MyContextProvider = ({ children }) => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [posts, setPosts] = useState([]);
   const values = {
     openLoginModal,
     setOpenLoginModal,
+    posts,
+    setPosts,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };

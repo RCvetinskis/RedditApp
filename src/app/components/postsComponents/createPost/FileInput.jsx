@@ -96,7 +96,7 @@ const FileInput = ({ postValues, setPostValues }) => {
             className="mid-purpole-color hover:text-white cursor-pointer ml-auto absolute right-0 z-1"
             size={30}
           />
-          <div className="w-full h-[600px]">
+          <div className="w-full h-[400px]">
             <img
               className="w-full h-full rounded"
               src={imagePreview}
@@ -117,7 +117,7 @@ const FileInput = ({ postValues, setPostValues }) => {
             className="mid-purpole-color hover:text-white cursor-pointer ml-auto absolute right-0 z-10"
             size={30}
           />
-          <div className="w-full h-[600px]">
+          <div className="w-full h-[400px]">
             <video controls className="w-full h-full bg-black rounded">
               <source src={videoPreview} type={postValues.type} />
               Your browser does not support the video tag.
