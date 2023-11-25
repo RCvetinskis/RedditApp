@@ -18,9 +18,7 @@ export default function RootLayout({ children }) {
           <body className={inter.className}>
             <NavBar />
 
-            <div className="max-w-4xl w-full mx-auto mt-[8rem] ">
-              {children}
-            </div>
+            <div>{children}</div>
           </body>
         </AuthProvider>
       </MyContextProvider>

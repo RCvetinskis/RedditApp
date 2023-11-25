@@ -8,7 +8,7 @@ const PostsSchema = new Schema(
     },
     overview: {
       type: String,
-      required: true,
+      required: false,
     },
     link: {
       type: String,

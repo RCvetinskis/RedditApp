@@ -12,7 +12,7 @@ const CreatePostModal = ({
   setOpenPostModal,
   defaultValues,
 }) => {
-  const { setOpenLoginModal } = useContext(MyContext);
+  const { setOpenLoginModal, posts, setPosts } = useContext(MyContext);
 
   const handlePost = async (e) => {
     e.preventDefault();
@@ -21,28 +21,42 @@ const CreatePostModal = ({
       if (result) {
         setOpenLoginModal(true);
       }
-    } else if (!postValues.title || !postValues.overview) {
+    } else if (
+      !postValues.title ||
+      Object.values(postValues).filter(Boolean).length <= 1
+    ) {
+      alert("title and  link, overview or file should be included");
     } else {
-      const formData = {
-        userId: session.user._id,
-        title: postValues.title,
-        overview: postValues.overview,
-      };
-
+      const formData = new FormData();
+      formData.append("userId", session.user._id);
+      for (const name in postValues) {
+        if (
+          postValues[name] !== null &&
+          postValues[name] !== undefined &&
+          postValues[name] !== ""
+        ) {
+          formData.append(name, postValues[name]);
+        }
+      }
       try {
         const { data } = await axios.post(
           "http://localhost:3000/api/posts",
-          formData
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         if (!data.error) {
           setPostValues(defaultValues);
-
           setOpenPostModal(false);
+          setPosts([data.post, ...posts]);
         } else {
           alert(data.message);
         }
       } catch (error) {
-        throw new Error(error);
+        console.log(error);
       }
     }
   };

@@ -1,12 +1,13 @@
 "use client";
 import axios from "axios";
-import Post from "./components/postsComponents/Post";
+import PostCard from "./components/postsComponents/PostCard";
 
 import CreatePostContainer from "./components/postsComponents/createPost/CreatePostContainer";
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
+import MyContext from "./context/MyContext";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
+  const { posts, setPosts } = useContext(MyContext);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -26,14 +27,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main className="max-w-2xl w-[80%]  sm:w-full  mx-auto mt-[8rem]">
       <header>
         <CreatePostContainer />
       </header>
 
-      <section className="posts-container mt-5">
+      <section className="posts-container mt-5  flex flex-col gap-5  ">
         {posts.map((post) => (
-          <Post key={post._id} post={post} />
+          <PostCard key={post._id} post={post} />
         ))}
       </section>
     </main>
