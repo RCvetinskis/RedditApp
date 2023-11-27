@@ -6,6 +6,9 @@ const SERVER_API = {
   },
   getPosts: `${serverEnviroment}/posts`,
   comments: `${serverEnviroment}/comments`,
+  getComment(id) {
+    return `${serverEnviroment}/comments/${id}`;
+  },
 };
 
 export { SERVER_API };

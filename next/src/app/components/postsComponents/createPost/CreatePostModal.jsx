@@ -12,7 +12,7 @@ const CreatePostModal = ({
   setOpenPostModal,
   defaultValues,
 }) => {
-  const { setOpenLoginModal, posts, setPosts } = useContext(MyContext);
+  const { setOpenLoginModal, socket } = useContext(MyContext);
 
   const handlePost = async (e) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ const CreatePostModal = ({
         if (!data.error) {
           setPostValues(defaultValues);
           setOpenPostModal(false);
-          setPosts([data.post, ...posts]);
+          socket.emit("add-post", data.post);
         } else {
           alert(data.message);
         }

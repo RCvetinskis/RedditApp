@@ -9,12 +9,13 @@ export async function GET(res, { params }) {
     const { id } = params;
 
     const currentPostComments = await dbComments
-      .find({ postId: id })
+      .find({ post: id })
       .populate({
-        path: "userId",
+        path: "user",
         select: "-password -email",
       })
-      .populate("replies");
+      .populate("replies")
+      .sort({ createdAt: -1 });
 
     if (!currentPostComments || currentPostComments.length === 0)
       return NextResponse.json({

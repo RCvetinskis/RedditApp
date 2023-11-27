@@ -14,8 +14,8 @@ export async function POST(res) {
 
     const newComment = await dbComments.create({
       comment,
-      userId,
-      postId,
+      user: userId,
+      post: postId,
     });
 
     if (!newComment)

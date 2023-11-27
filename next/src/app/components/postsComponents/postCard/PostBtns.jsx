@@ -35,7 +35,7 @@ const PostBtns = ({ post }) => {
             size={24}
             className="mid-purpole-color hover:text-gray-500 cursor-pointer"
           />
-          <div class="absolute w-max  p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+          <div className="absolute w-max  p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
             Open Post
           </div>
         </Link>
@@ -45,7 +45,7 @@ const PostBtns = ({ post }) => {
             size={24}
             className="mid-purpole-color hover:text-gray-500 cursor-pointer"
           />
-          <div class="absolute w-max  p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+          <div className="absolute w-max  p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
             Home Page
           </div>
         </Link>
@@ -61,7 +61,7 @@ const PostBtns = ({ post }) => {
           }  hover:text-gray-500 cursor-pointer `}
           onClick={() => setToggleComments(!toggleComments)}
         />
-        <div class="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+        <div className="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
           {toggleComments ? "Close Comments" : "Open Comments"}
         </div>
       </Link>
@@ -71,7 +71,7 @@ const PostBtns = ({ post }) => {
           size={24}
           className="mid-purpole-color hover:text-gray-500 cursor-pointer"
         />
-        <div class="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+        <div className="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
           Save Post
         </div>
       </div>
@@ -81,11 +81,11 @@ const PostBtns = ({ post }) => {
           size={24}
           className="mid-purpole-color hover:text-gray-500 cursor-pointer"
         />
-        <div class="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+        <div className="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
           Copy Link
         </div>
         {message ? (
-          <div class="absolute top-12 w-max p-1 border bourder-gray-400 rounded   transition-opacity text-xs ">
+          <div className="absolute top-12 w-max p-1 border bourder-gray-400 rounded   transition-opacity text-xs ">
             {message}
           </div>
         ) : (

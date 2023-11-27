@@ -24,7 +24,7 @@ const useGetData = (API) => {
     getData();
   }, [API]);
 
-  return data;
+  return { data, setData };
 };
 
 export default useGetData;

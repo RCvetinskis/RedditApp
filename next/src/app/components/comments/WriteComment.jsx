@@ -3,7 +3,7 @@ import MyContext from "@/app/context/MyContext";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { SERVER_API } from "../../../../utils/API";
-const WriteComment = ({ comments, setComments, postId, userId }) => {
+const WriteComment = ({ postId, userId }) => {
   const { socket } = useContext(MyContext);
   const [commentValue, setCommentValue] = useState("");
 
@@ -20,7 +20,6 @@ const WriteComment = ({ comments, setComments, postId, userId }) => {
 
         if (!data.error) {
           socket.emit("post-comment", data.comment);
-          setComments(data.comment);
         } else {
           console.log(data.message);
         }
@@ -29,7 +28,7 @@ const WriteComment = ({ comments, setComments, postId, userId }) => {
       }
     }
   };
-  console.log(comments);
+
   return (
     <div className="max-w-[600px] w-full mx-auto ">
       <textarea
