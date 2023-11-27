@@ -1,0 +1,14 @@
+.countdown {
+  transform: translate(-50%, -50%);
+  animation: countDown 1s ease-in-out infinite;
+}
+@keyframes countDown {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
