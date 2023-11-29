@@ -24,10 +24,18 @@ export async function POST(res) {
         message: "failed to create comment",
       });
 
+    const populatedComment = await dbComments
+      .findById(newComment._id)
+      .populate({
+        path: "user",
+        select: "-password -email",
+      })
+      .exec();
+
     return NextResponse.json({
       error: false,
       message: "Comment posted",
-      comment: newComment,
+      comment: populatedComment,
     });
   } catch (error) {
     console.log(error);

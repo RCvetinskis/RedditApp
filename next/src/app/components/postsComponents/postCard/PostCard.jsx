@@ -8,7 +8,7 @@ import VideoContainer from "../../images/VideoContainer";
 const PostCard = ({ post }) => {
   return (
     <div className=" flex items-center  rounded  shadow-lg shadow-black hover:shadow-gray-500 ">
-      <PostUpVotes />
+      <PostUpVotes style={"flex-col"} />
 
       <div
         className="w-full  text-gray-300 "

@@ -5,10 +5,11 @@ const SERVER_API = {
     return `${serverEnviroment}/posts/${id}`;
   },
   getPosts: `${serverEnviroment}/posts`,
-  comments: `${serverEnviroment}/comments`,
-  getComment(id) {
+  getPostsComments(id) {
     return `${serverEnviroment}/comments/${id}`;
   },
+
+  addComment: `${serverEnviroment}/comments`,
 };
 
 export { SERVER_API };

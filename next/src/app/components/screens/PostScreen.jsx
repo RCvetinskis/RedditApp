@@ -2,7 +2,7 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import LoadingScreen from "../LoadingScreen";
+import LoadingScreen from "../loading/LoadingScreen";
 import PostCard from "../postsComponents/postCard/PostCard";
 import CommentsContainer from "../comments/CommentsContainer";
 

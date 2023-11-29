@@ -2,20 +2,33 @@ import { NextResponse } from "next/server";
 import connectMongoDb from "../../../../../lib/mongodb";
 import dbComments from "../../../../../schemas/dbComments";
 
-export async function GET(res, { params }) {
+// get comments
+export async function GET(req, { params }) {
   try {
     await connectMongoDb();
 
     const { id } = params;
 
+    const limit = Number(req.nextUrl.searchParams.get("limit")) || 5;
+    const page = Number(req.nextUrl.searchParams.get("page")) || 0;
+    const skip = Math.max(0, Number(page - 1)) * limit;
+
     const currentPostComments = await dbComments
-      .find({ post: id })
+      .find({ post: id, isReply: false })
       .populate({
         path: "user",
         select: "-password -email",
       })
-      .populate("replies")
-      .sort({ createdAt: -1 });
+      .populate({
+        path: "replies",
+        populate: {
+          path: "user",
+          select: "-password -email",
+        },
+      })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     if (!currentPostComments || currentPostComments.length === 0)
       return NextResponse.json({
@@ -26,7 +39,7 @@ export async function GET(res, { params }) {
     return NextResponse.json({
       error: false,
       message: "Comment found",
-      comments: currentPostComments,
+      results: currentPostComments,
     });
   } catch (error) {
     console.log(error);
