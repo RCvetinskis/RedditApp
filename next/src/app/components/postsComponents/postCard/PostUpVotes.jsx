@@ -1,17 +1,27 @@
 import React from "react";
 import { FaLongArrowAltUp, FaLongArrowAltDown } from "react-icons/fa";
-const PostUpVotes = () => {
+import HoverText from "../../visual/HoverText";
+const PostUpVotes = ({ style }) => {
   return (
-    <div className=" grid justify-start gap-3 text-gray-500 ">
-      <FaLongArrowAltUp
-        size={26}
-        className="hover:text-gray-300 cursor-pointer"
-      />
-      <p className="text-xs place-self-center">24</p>
-      <FaLongArrowAltDown
-        size={26}
-        className="hover:text-gray-300 cursor-pointer"
-      />
+    <div
+      className={` flex ${style} justify-start items-center   gap-1 text-gray-500 `}
+    >
+      <div className="group  relative ">
+        <FaLongArrowAltUp
+          size={26}
+          className="hover:text-gray-300 cursor-pointer"
+        />
+        <HoverText text={"Upvote"} />
+      </div>
+
+      <p className="text-xs  mx-1">24</p>
+      <div className="group relative">
+        <FaLongArrowAltDown
+          size={26}
+          className="hover:text-gray-300 cursor-pointer"
+        />
+        <HoverText text={"Downvote"} />
+      </div>
     </div>
   );
 };

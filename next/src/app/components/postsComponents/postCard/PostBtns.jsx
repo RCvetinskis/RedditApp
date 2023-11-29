@@ -4,9 +4,9 @@ import { BiCommentDots } from "react-icons/bi";
 import { TiFolderOpen } from "react-icons/ti";
 import { FaHome } from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
-
 import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
+import HoverText from "../../visual/HoverText";
 const PostBtns = ({ post }) => {
   const searchParams = useSearchParams();
   const commentsParams = searchParams.has("comments");
@@ -35,9 +35,8 @@ const PostBtns = ({ post }) => {
             size={24}
             className="mid-purpole-color hover:text-gray-500 cursor-pointer"
           />
-          <div className="absolute w-max  p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
-            Open Post
-          </div>
+
+          <HoverText text={"Open Post"} />
         </Link>
       ) : (
         <Link className="group relative" href={"/"}>
@@ -45,9 +44,7 @@ const PostBtns = ({ post }) => {
             size={24}
             className="mid-purpole-color hover:text-gray-500 cursor-pointer"
           />
-          <div className="absolute w-max  p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
-            Home Page
-          </div>
+          <HoverText text={"Home Page"} />
         </Link>
       )}
       <Link
@@ -61,9 +58,8 @@ const PostBtns = ({ post }) => {
           }  hover:text-gray-500 cursor-pointer `}
           onClick={() => setToggleComments(!toggleComments)}
         />
-        <div className="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
-          {toggleComments ? "Close Comments" : "Open Comments"}
-        </div>
+
+        <HoverText text={toggleComments ? "Close Comments" : "Open Comments"} />
       </Link>
 
       <div className="group relative">
@@ -71,9 +67,7 @@ const PostBtns = ({ post }) => {
           size={24}
           className="mid-purpole-color hover:text-gray-500 cursor-pointer"
         />
-        <div className="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
-          Save Post
-        </div>
+        <HoverText text={"Save Post"} />
       </div>
 
       <div onClick={handleCopyClick} className="group relative">
@@ -81,16 +75,10 @@ const PostBtns = ({ post }) => {
           size={24}
           className="mid-purpole-color hover:text-gray-500 cursor-pointer"
         />
-        <div className="absolute w-max p-1 border bourder-gray-400 rounded  opacity-0 group-hover:opacity-100 transition-opacity text-xs">
-          Copy Link
-        </div>
-        {message ? (
-          <div className="absolute top-12 w-max p-1 border bourder-gray-400 rounded   transition-opacity text-xs ">
-            {message}
-          </div>
-        ) : (
-          <></>
-        )}
+
+        <HoverText text={"Copy Link"} />
+
+        {message ? <HoverText text={message} /> : <></>}
       </div>
     </div>
   );

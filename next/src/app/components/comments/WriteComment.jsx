@@ -3,6 +3,7 @@ import MyContext from "@/app/context/MyContext";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { SERVER_API } from "../../../../utils/API";
+import CommentSection from "./CommentSection";
 const WriteComment = ({ postId, userId }) => {
   const { socket } = useContext(MyContext);
   const [commentValue, setCommentValue] = useState("");
@@ -12,7 +13,7 @@ const WriteComment = ({ postId, userId }) => {
       alert("provide comment");
     } else {
       try {
-        const { data } = await axios.post(SERVER_API.comments, {
+        const { data } = await axios.post(SERVER_API.addComment, {
           comment: commentValue,
           userId,
           postId,
@@ -20,6 +21,7 @@ const WriteComment = ({ postId, userId }) => {
 
         if (!data.error) {
           socket.emit("post-comment", data.comment);
+          setCommentValue("");
         } else {
           console.log(data.message);
         }
@@ -30,21 +32,12 @@ const WriteComment = ({ postId, userId }) => {
   };
 
   return (
-    <div className="max-w-[600px] w-full mx-auto ">
-      <textarea
-        className="w-full p-3 pb-10 min-h-[25vh] outline-none resize-none rounded border  border-b-0  border-gray-500 bg-transparent focus:border-gray-400 "
-        placeholder="What are your thoughts?"
-        onChange={(e) => setCommentValue(e.target.value)}
-      ></textarea>
-
-      <div className="grid p-2 rounded border -mt-1   border-gray-500 bg-transparent   ">
-        <button
-          onClick={handleComment}
-          className="btn btn-sm justify-self-end  "
-        >
-          Comment
-        </button>
-      </div>
+    <div>
+      <CommentSection
+        commentValue={commentValue}
+        setCommentValue={setCommentValue}
+        handleComment={handleComment}
+      />
     </div>
   );
 };

@@ -68,16 +68,30 @@ export async function POST(req) {
     console.error("Error:", error);
   }
 }
-export async function GET() {
+
+export async function GET(req) {
   try {
     await connectMongoDb();
-    const posts = await dbPosts.find().sort({ createdAt: -1 });
+
+    const limit = Number(req.nextUrl.searchParams.get("limit")) || 10;
+    const page = Number(req.nextUrl.searchParams.get("page")) || 0;
+    const skip = Math.max(0, Number(page - 1)) * limit;
+
+    const posts = await dbPosts
+      .find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     if (!posts || posts.length === 0) {
       return NextResponse.json({ error: true, message: "Posts not found" });
     }
 
-    return NextResponse.json({ error: false, message: "Posts sent", posts });
+    return NextResponse.json({
+      error: false,
+      message: "Posts sent",
+      results: posts,
+    });
   } catch (error) {
     console.error("error", error);
   }
