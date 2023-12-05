@@ -3,8 +3,12 @@ import Link from "next/link";
 import "../../style/navigation/accNavModal.css";
 import useCloseOutside from "@/app/hooks/useCloseOutside";
 import { signOut } from "next-auth/react";
+import { useContext } from "react";
+import MyContext from "@/app/context/MyContext";
 const NavAccount = ({ setAccModal }) => {
   const dropdownRef = useCloseOutside(setAccModal, false);
+  const { openCreateCommunity, setOpenCreateCommunity } = useContext(MyContext);
+
   return (
     <nav
       ref={dropdownRef}
@@ -17,19 +21,21 @@ const NavAccount = ({ setAccModal }) => {
       >
         Profile
       </Link>
-      <Link
-        onClick={() => setAccModal(false)}
+      <div
+        onClick={() => {
+          setAccModal(false);
+          setOpenCreateCommunity(!openCreateCommunity);
+        }}
         className="nav-acc-item"
-        href={"/account"}
       >
         Create a Community
-      </Link>
+      </div>
       <Link
         onClick={() => setAccModal(false)}
         className="nav-acc-item"
         href={"/account"}
       >
-        Communities
+        My Communities
       </Link>
       <button
         onClick={() => signOut()}

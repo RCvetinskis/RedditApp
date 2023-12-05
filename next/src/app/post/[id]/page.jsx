@@ -20,5 +20,7 @@ export default async function PostPage({ params }) {
   const { id } = params;
   const post = await getPostById(id);
 
-  return <>{!post ? <PageNotFound /> : <PostScreen post={post} id={id} />}</>;
+  return (
+    <>{!post ? <PageNotFound /> : <PostScreen post={post} postId={id} />}</>
+  );
 }

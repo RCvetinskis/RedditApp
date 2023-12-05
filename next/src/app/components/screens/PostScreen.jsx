@@ -6,7 +6,7 @@ import LoadingScreen from "../loading/LoadingScreen";
 import PostCard from "../postsComponents/postCard/PostCard";
 import CommentsContainer from "../comments/CommentsContainer";
 
-const PostScreen = ({ id, post }) => {
+const PostScreen = ({ postId, post }) => {
   const { data: session } = useSession();
   const searchParams = useSearchParams();
 
@@ -19,7 +19,7 @@ const PostScreen = ({ id, post }) => {
           <PostCard post={post} />
           <CommentsContainer
             searchParams={searchParams}
-            postId={id}
+            postId={postId}
             userId={session?.user?._id}
           />
         </div>

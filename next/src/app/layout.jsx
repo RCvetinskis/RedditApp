@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/navigation/NavBar";
 import { AuthProvider, MyContextProvider } from "./providers";
+import CreatCommunityModal from "./components/community/createCommunity/CreatCommunityModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <body className={inter.className}>
             <NavBar />
+            <CreatCommunityModal />
 
             <div>{children}</div>
           </body>

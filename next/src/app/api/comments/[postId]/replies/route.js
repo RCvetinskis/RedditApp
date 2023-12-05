@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     await connectMongoDb();
 
-    const { replyComment, parentCommentId, userId } = await req.json();
+    const { replyComment, parentCommentId, userId, postId } = await req.json();
 
     if (!replyComment || !parentCommentId || !userId)
       return NextResponse.json({
@@ -15,34 +15,33 @@ export async function POST(req) {
         message: "No reply, parentCommentId, or userId provided",
       });
 
-    const parentComment = await dbComments.findById(parentCommentId);
-
-    if (!parentComment)
-      return NextResponse.json({
-        error: true,
-        message: "Parent comment not found",
-      });
-
-    const newReply = await dbComments.create({
+    const newReplyComment = await dbComments.create({
       comment: replyComment,
       user: userId,
-      post: parentComment.post,
-      isReply: true,
+      post: postId,
+      parentCommentId,
     });
+    await newReplyComment.save();
 
-    if (!newReply)
-      return NextResponse.json({
-        error: true,
-        message: "Reply was not created",
-      });
-
-    parentComment.replies.push(newReply._id);
+    const parentComment = await dbComments.findById(parentCommentId);
+    parentComment.replies.push(newReplyComment._id);
     await parentComment.save();
+
+    const populatedComment = await dbComments
+      .findById(newReplyComment._id)
+      .populate({
+        path: "user",
+        select: "-password -email",
+      })
+      .populate({
+        path: "replies",
+      })
+      .exec();
 
     return NextResponse.json({
       error: false,
       message: "reply posted succesfully",
-      replyComment: newReply,
+      replyComment: populatedComment,
     });
   } catch (error) {
     console.error("Failed to post reply", error);
