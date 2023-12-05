@@ -34,6 +34,12 @@ body {
 .mid-purpole-color {
   color: #5a189a;
 }
+.border-mid-purpole {
+  border-color: #5a189a;
+}
+.bg-black-transparent {
+  background-color: rgba(0, 0, 0, 0.479);
+}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

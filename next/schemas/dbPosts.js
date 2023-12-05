@@ -6,6 +6,11 @@ const PostsSchema = new Schema(
       type: String,
       required: true,
     },
+    community: {
+      type: Schema.Types.ObjectId,
+      ref: "Community",
+      required: false,
+    },
     overview: {
       type: String,
       required: false,

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectMongoDb from "../../../../lib/mongodb";
 import dbComments from "../../../../schemas/dbComments";
 
+// post comment
 export async function POST(res) {
   try {
     await connectMongoDb();

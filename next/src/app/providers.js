@@ -10,11 +10,8 @@ export const AuthProvider = ({ children }) => {
 
 export const MyContextProvider = ({ children }) => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
-  // defaul values for useGetData
-  const [posts, setPosts] = useState({
-    isLoading: true,
-    message: "",
-  });
+  const [socketCallName, setSocketCallName] = useState("");
+  const [openCreateCommunity, setOpenCreateCommunity] = useState(false);
 
   const socket = io.connect("http://localhost:4000");
 
@@ -22,6 +19,10 @@ export const MyContextProvider = ({ children }) => {
     openLoginModal,
     setOpenLoginModal,
     socket,
+    socketCallName,
+    setSocketCallName,
+    openCreateCommunity,
+    setOpenCreateCommunity,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };

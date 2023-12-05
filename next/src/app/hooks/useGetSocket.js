@@ -1,20 +1,38 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import MyContext from "../context/MyContext";
 
-const useGetSocket = (callName, data, setData) => {
+const useGetSocket = (data, setData, socketCallName) => {
   const { socket } = useContext(MyContext);
   useEffect(() => {
-    socket.on(callName, (newPost) => {
+    const handleNewPost = (newPost) => {
       setData((prevData) => {
-        const updatedData =
-          prevData.length === 0 ? [newPost] : [newPost, ...prevData];
+        let updatedData = prevData.map((comment) => {
+          if (
+            newPost.parentComment &&
+            comment._id === newPost.parentCommentId
+          ) {
+            return {
+              ...comment,
+              replies: [newPost, ...comment],
+            };
+          }
+
+          return comment;
+        });
+
+        if (!newPost.parentComment) {
+          updatedData = [newPost, ...updatedData];
+        }
+
         return updatedData;
       });
-    });
-    return () => {
-      socket.off(callName);
     };
-  }, [socket]);
+    socket.on(socketCallName, handleNewPost);
+    return () => {
+      socket.off(socketCallName, handleNewPost);
+    };
+  }, [socket, socketCallName]);
+
   return data;
 };
 

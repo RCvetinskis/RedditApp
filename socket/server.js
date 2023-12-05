@@ -1,10 +1,14 @@
-const express = require("express");
+import express from "express";
+import http from "http";
+import setupSocketIO from "./modules/socket.js";
+
 const app = express();
-const http = require("http").createServer(app);
+const server = http.createServer(app);
 const port = 4000;
 
-require("./modules/socket")(http);
-http.listen(port, (err) => {
+setupSocketIO(server);
+
+server.listen(port, (err) => {
   if (err) return console.log(err);
   console.log(`serve at http://localhost:${port}`);
 });

@@ -30,7 +30,7 @@ const PostBtns = ({ post }) => {
   return (
     <div className=" p-3 mt-3 border-t border-gray-500 flex items-center gap-5">
       {!pathname.includes("/post/") ? (
-        <Link className="group  relative" href={`post/${post._id}`}>
+        <Link className="group  relative" href={`/post/${post._id}`}>
           <TiFolderOpen
             size={24}
             className="mid-purpole-color hover:text-gray-500 cursor-pointer"

@@ -17,16 +17,19 @@ const CommentSchema = new Schema(
       ref: "Posts",
       required: true,
     },
-    isReply: {
-      type: Boolean,
-      default: false,
-    },
+
     replies: [
       {
         type: mongoose.Schema.Types.ObjectId,
+        required: false,
         ref: "Comments",
       },
     ],
+    parentCommentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "Comments",
+    },
   },
   {
     timestamps: true,

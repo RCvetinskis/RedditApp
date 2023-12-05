@@ -20,7 +20,9 @@ const CreatePostContainer = () => {
   return (
     <>
       {status === "loading" ? (
-        <></>
+        <div className="animate-bounce  semi-light-purpole-color">
+          Loading...
+        </div>
       ) : (
         <div className="create-post-container">
           <CreatePostBtn
