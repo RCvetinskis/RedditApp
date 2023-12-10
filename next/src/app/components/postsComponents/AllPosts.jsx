@@ -3,13 +3,9 @@ import React from "react";
 import PostCard from "../postsComponents/postCard/PostCard";
 import useInfiniteScroll from "@/app/hooks/useInfiniteScroll";
 import useGetSocket from "@/app/hooks/useGetSocket";
-import { SERVER_API } from "../../../../utils/API";
-const AllPosts = () => {
-  const { ref, hasMore, data, setData } = useInfiniteScroll(
-    SERVER_API.getPosts,
-    null,
-    5
-  );
+
+const AllPosts = ({ API }) => {
+  const { ref, hasMore, data, setData } = useInfiniteScroll(API, 4);
 
   useGetSocket(data, setData, "new-post");
   return (

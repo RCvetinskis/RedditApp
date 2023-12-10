@@ -8,8 +8,8 @@ const PostsSchema = new Schema(
     },
     community: {
       type: Schema.Types.ObjectId,
-      ref: "Community",
-      required: false,
+      ref: "Communities",
+      required: true,
     },
     overview: {
       type: String,
@@ -42,6 +42,20 @@ const PostsSchema = new Schema(
         required: false,
       },
     },
+    upvotes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "Users",
+          required: true,
+        },
+        vote: {
+          type: Number,
+          required: false,
+          default: 0,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

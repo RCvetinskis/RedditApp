@@ -3,10 +3,10 @@ import connectMongoDb from "../../../../lib/mongodb";
 import dbComments from "../../../../schemas/dbComments";
 
 // post comment
-export async function POST(res) {
+export async function POST(req) {
   try {
     await connectMongoDb();
-    const { comment, userId, postId } = await res.json();
+    const { comment, userId, postId } = await req.json();
 
     if (!comment || !userId || !postId)
       return {

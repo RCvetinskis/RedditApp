@@ -7,15 +7,6 @@ import CreatePostModal from "./CreatePostModal";
 const CreatePostContainer = () => {
   const { data: session, status } = useSession();
 
-  const defaultValues = {
-    title: "",
-    overview: "",
-    link: "",
-    image: null,
-    video: null,
-  };
-  const [postValues, setPostValues] = useState(defaultValues);
-
   const [openPostModal, setOpenPostModal] = useState("");
   return (
     <>
@@ -33,10 +24,7 @@ const CreatePostContainer = () => {
           <CreatePostModal
             session={session}
             openPostModal={openPostModal}
-            postValues={postValues}
-            setPostValues={setPostValues}
             setOpenPostModal={setOpenPostModal}
-            defaultValues={defaultValues}
           />
         </div>
       )}

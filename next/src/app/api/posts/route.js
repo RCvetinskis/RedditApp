@@ -3,6 +3,7 @@ import dbPosts from "../../../../schemas/dbPosts";
 import dbUsers from "../../../../schemas/dbUsers";
 import connectMongoDb from "../../../../lib/mongodb";
 import { uploadFile, getFileUrl } from "../../../../lib/s3";
+import dbCommunity from "../../../../schemas/dbCommunity";
 
 // helpers
 function formDataToObject(formData) {
@@ -35,24 +36,30 @@ export async function POST(req) {
 
     const formData = await req.formData();
 
-    const { image, video, title, overview, userId, link } =
+    const { image, video, title, overview, userId, link, communityTitle } =
       formDataToObject(formData);
 
-    const { _id, username, avatar } = await dbUsers.findOne({ _id: userId });
+    const { _id, username, avatar } = await dbUsers.findById(userId);
+
+    if (!_id)
+      return NextResponse.json({ error: true, message: "user not found" });
+
     const user = {
       userId: _id,
       username,
       avatar,
     };
 
-    if (!user)
-      return NextResponse.json({ error: true, message: "user not found" });
+    const community = await dbCommunity.findOne({ title: communityTitle });
+    if (!community)
+      return NextResponse.json({ error: true, message: "community not found" });
 
     let postObjects = {
       user,
       title,
       overview,
       link,
+      community: community._id,
     };
 
     if (image) {
@@ -62,6 +69,8 @@ export async function POST(req) {
       postObjects = await handleMediaUpload(video, "video", postObjects);
     }
     const post = await dbPosts.create(postObjects);
+    community.posts.push(post._id);
+    community.save();
 
     return NextResponse.json({ error: false, message: "Posted", post });
   } catch (error) {
@@ -81,7 +90,11 @@ export async function GET(req) {
       .find()
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .populate({
+        path: "community",
+        select: "avatar title",
+      });
 
     if (!posts || posts.length === 0) {
       return NextResponse.json({ error: true, message: "Posts not found" });

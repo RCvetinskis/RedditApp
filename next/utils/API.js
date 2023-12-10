@@ -1,10 +1,17 @@
 const serverEnvironment = "http://localhost:3000/api";
 
 const SERVER_API = {
+  // posts
   getPost(id) {
     return `${serverEnvironment}/posts/${id}`;
   },
   getPosts: `${serverEnvironment}/posts`,
+  // upvotes
+  updateVote(id) {
+    return `${serverEnvironment}/posts/${id}/upvote`;
+  },
+
+  // comments
   getPostsComments(postId) {
     return `${serverEnvironment}/comments/${postId}`;
   },
@@ -15,10 +22,14 @@ const SERVER_API = {
     return `${serverEnvironment}/comments/${postId}/replies`;
   },
 
+  // community
   addComment: `${serverEnvironment}/comments`,
-  addCommunity: `${serverEnvironment}/community`,
+  community: `${serverEnvironment}/community`,
   getCommunity(title) {
     return `${serverEnvironment}/community/${title}`;
+  },
+  getCommunityPosts(title) {
+    return `${serverEnvironment}/community/${title}/posts`;
   },
 };
 

@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <MyContextProvider>
         <AuthProvider>
-          <body className={inter.className}>
+          <body className={inter.className} suppressHydrationWarning={true}>
             <NavBar />
             <CreatCommunityModal />
 
