@@ -5,10 +5,10 @@ const ImageContainer = ({ image }) => {
   return (
     <div
       onClick={() => setOpenImage(true)}
-      className=" bg-black rounded cursor-pointer "
+      className=" bg-black rounded cursor-pointer"
     >
       <img
-        className="max-w-[400px] max-h-[400px] w-full h-auto mx-auto "
+        className=" w-full h-auto mx-auto rounded "
         src={image}
         alt="post image"
       />

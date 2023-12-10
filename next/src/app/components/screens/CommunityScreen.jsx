@@ -4,10 +4,10 @@ import CreatePostContainer from "../postsComponents/createPost/CreatePostContain
 import NavCommunity from "../community/ScreenComponents/NavCommunity";
 import AllPosts from "../postsComponents/AllPosts";
 import BtnScrollTop from "../buttons/BtnScrollTop";
-
+import { SERVER_API } from "../../../../utils/API";
 const CommunityScreen = ({ community }) => {
   const [showLayouts, setShowLayouts] = useState("card");
-  console.log(community);
+
   return (
     <div className="mt-[4.8rem]">
       <BtnScrollTop />
@@ -46,7 +46,7 @@ const CommunityScreen = ({ community }) => {
           <CreatePostContainer />
         </section>
         <main>
-          <AllPosts />
+          <AllPosts API={SERVER_API.getCommunityPosts(community.title)} />
         </main>
       </div>
     </div>

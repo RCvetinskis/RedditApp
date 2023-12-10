@@ -12,6 +12,8 @@ export const MyContextProvider = ({ children }) => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [socketCallName, setSocketCallName] = useState("");
   const [openCreateCommunity, setOpenCreateCommunity] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
+  const [conversation, setConversation] = useState(null);
 
   const socket = io.connect("http://localhost:4000");
 
@@ -23,6 +25,10 @@ export const MyContextProvider = ({ children }) => {
     setSocketCallName,
     openCreateCommunity,
     setOpenCreateCommunity,
+    openChat,
+    setOpenChat,
+    conversation,
+    setConversation,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };

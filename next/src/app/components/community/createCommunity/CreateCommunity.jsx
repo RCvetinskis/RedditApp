@@ -23,7 +23,7 @@ const CreateCommunity = ({ setOpenCreateCommunity }) => {
         userId,
       };
       try {
-        const { data } = await axios.post(SERVER_API.addCommunity, formData);
+        const { data } = await axios.post(SERVER_API.community, formData);
         if (!data.error) {
           setErrorMessage("");
           router.push(`/community/${data.results.title}`);
@@ -41,7 +41,7 @@ const CreateCommunity = ({ setOpenCreateCommunity }) => {
     <form
       ref={closeRef}
       onSubmit={handleSubmit}
-      className="flex flex-col gap-3 p-5 bg-black rounded w-[400px] relative"
+      className="flex flex-col gap-3 p-5 bg-black rounded w-[400px] relative "
     >
       <IoIosCloseCircle
         className="absolute -top-3 -right-3 cursor-pointer hover:text-gray-400 transition-all "

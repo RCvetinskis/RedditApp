@@ -12,7 +12,7 @@ const NavAccount = ({ setAccModal }) => {
   return (
     <nav
       ref={dropdownRef}
-      className=" nav-acc-container fixed right-[0.5%] top-[10%] flex flex-col  rounded mid-purpole-bg  dark-purpole-color  "
+      className=" nav-acc-container fixed right-[0.5%] top-[10%] flex flex-col  rounded mid-purpole-bg  dark-purpole-color  z-10 "
     >
       <Link
         onClick={() => setAccModal(false)}

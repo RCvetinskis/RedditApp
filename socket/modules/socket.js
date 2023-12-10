@@ -13,7 +13,6 @@ const setupSocketIO = (http) => {
     });
 
     socket.on("post-reply", async (reply) => {
-      const replyComment = console.log(reply);
       io.emit("new-reply", reply);
     });
 

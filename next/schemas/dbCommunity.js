@@ -47,5 +47,5 @@ CommunitySchema.pre("save", function (next) {
 });
 
 const dbCommunity =
-  mongoose.models.Community || mongoose.model("Community", CommunitySchema);
+  mongoose.models.Communities || mongoose.model("Communities", CommunitySchema);
 export default dbCommunity;

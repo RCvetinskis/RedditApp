@@ -7,13 +7,13 @@ const NavCommunity = ({ setShowLayouts }) => {
   const [layoutsMenu, setLayoutsMenu] = useState(false);
   return (
     <nav className="flex gap-3 rounded border-4 border-mid-purpole p-2">
-      <div className="flex items-center gap-2 p-2 rounded-full  cursor-pointer bg-gray-950  text-gray-500 hover:text-white hover:bg-black transition-all">
-        <FaHotjar size={24} />
-        <span>Hot</span>
-      </div>
       <div className="flex items-center gap-2 p-2 rounded-full cursor-pointer  bg-gray-950 text-gray-500 hover:text-white hover:bg-black transition-all">
         <ImCool2 size={24} />
         <span>New</span>
+      </div>
+      <div className="flex items-center gap-2 p-2 rounded-full  cursor-pointer bg-gray-950  text-gray-500 hover:text-white hover:bg-black transition-all">
+        <FaHotjar size={24} />
+        <span>Hot</span>
       </div>
       <div
         onClick={() => setLayoutsMenu(!layoutsMenu)}

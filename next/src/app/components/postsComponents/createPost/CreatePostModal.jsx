@@ -1,18 +1,21 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import FileInput from "./FileInput";
 import MyContext from "@/app/context/MyContext";
 import axios from "axios";
-
-const CreatePostModal = ({
-  openPostModal,
-  postValues,
-  setPostValues,
-  session,
-  setOpenPostModal,
-  defaultValues,
-}) => {
+import SearchContainer from "../../SearchCommunities/SearchContainer";
+const CreatePostModal = ({ openPostModal, session, setOpenPostModal }) => {
   const { setOpenLoginModal, socket } = useContext(MyContext);
+
+  const defaultValues = {
+    title: "",
+    overview: "",
+    link: "",
+    image: null,
+    video: null,
+    communityTitle: "",
+  };
+  const [postValues, setPostValues] = useState(defaultValues);
 
   const handlePost = async (e) => {
     e.preventDefault();
@@ -23,9 +26,10 @@ const CreatePostModal = ({
       }
     } else if (
       !postValues.title ||
-      Object.values(postValues).filter(Boolean).length <= 1
+      !postValues.communityTitle ||
+      !postValues.overview
     ) {
-      alert("title and  link, overview or file should be included");
+      alert("Please provide title, community and overview");
     } else {
       const formData = new FormData();
       formData.append("userId", session.user._id);
@@ -75,6 +79,10 @@ const CreatePostModal = ({
           onSubmit={handlePost}
           className="post-modal-container flex flex-col gap-5 mt-3"
         >
+          <div className="w-1/2">
+            <SearchContainer session={session} setPostValues={setPostValues} />
+          </div>
+
           <input
             className="mid-purpole-bg outline-none border border-current rounded py-2 p-3"
             type="text"
